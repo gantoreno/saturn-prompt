@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+if [[ -z "$ZSH" ]] then
+  echo "❌ You must have oh-my-zsh installed in order to use Saturn"
+  echo "🌎 Get it here: https://ohmyz.sh/"
+
+  exit 1
+fi
+
 cd $ZSH/custom/themes
 
 git clone $HOME/projects/saturn-prompt
