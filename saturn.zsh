@@ -11,7 +11,6 @@ export SATURN_VERSION='0.1.0'
 SATURN_PROMPT_ICON="${SATURN_PROMPT_ICON=🪐}"
 
 SATURN_PATH_COLOR="${SATURN_PATH_COLOR=cyan}"
-SATURN_PATH_FORMAT="${SATURN_PATH_FORMAT=%~}"
 
 SATURN_RIGHT_PROMPT="${SATURN_RIGHT_PROMPT=true}"
 
@@ -35,9 +34,15 @@ fi
 
 # Prompt (left)
 PROMPT=$''
-PROMPT+=$'$SATURN_PROMPT_ICON '                           # Prompt icon
-PROMPT+=$'%B%F{$SATURN_PATH_COLOR}$SATURN_PATH_FORMAT%f%b ' # Path
-PROMPT+=$'$(git_prompt_info)'                             # VCS
+PROMPT+=$'$SATURN_PROMPT_ICON '                             # Prompt icon
+
+if [[ "$plugins" =~ "shrink-path" ]] then
+  PROMPT+=$'%B%F{$SATURN_PATH_COLOR}$(shrink_path -f)%f%b ' # Use shrink_path if present
+else
+  PROMPT+=$'%B%F{$SATURN_PATH_COLOR}%~%f%b '                # Fallback to regular path
+fi
+
+PROMPT+=$'$(git_prompt_info)'                               # VCS
 
 if [[ $TERM_PROGRAM == "vscode" ]] then
   PROMPT+=$' '                                            # Add extra space for VSCode
