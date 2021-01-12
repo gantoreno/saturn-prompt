@@ -45,7 +45,7 @@ fi
 PROMPT+=$'$(git_prompt_info)'                               # VCS
 
 if [[ $TERM_PROGRAM == "vscode" ]] then
-  PROMPT+=$' '                                            # Add extra space for VSCode
+  PROMPT+=$' '                                              # Add extra space for VSCode
 fi
 
 # Prompt (right)
