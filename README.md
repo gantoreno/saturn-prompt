@@ -1,15 +1,11 @@
 <div align="center">
   <img src="img/logo.png" alt="Saturn prompt" width="400">
-  <h1>
-    🪐 Saturn Prompt
-  </h1>
+  <h1>Saturn</h1>
 </div>
 
-<hr>
+<h4 align="center">🪐 A ZSH theme for space lovers out there</h4>
 
-<h4 align="center">🌎 A ZSH theme for terrestrials (👽 and non-terrestrials too)</h4>
-
-Saturn is a soft & minimalistic prompt for those space fans out there, featuring cool emojis & highly customizable prompt elements (such as icons, colors, time format, and more).
+Saturn is a soft & minimalistic prompt for those who love space and want to have a bit of it on their terminal, featuring cool emojis & highly customizable prompt elements (such as icons, colors, time format, and more).
 
 <div align="center">
   <img src="img/saturn.png" alt="Saturn on iTerm2" width="800">
