@@ -15,10 +15,10 @@ Saturn is a soft & minimalistic prompt for those who love space and want to have
 
 ## Installation
 
-| Method | Command                                                                                                     |
-| :----- | :---------------------------------------------------------------------------------------------------------- |
-| cURL   | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/gantoreno/saturn-prompt/master/scripts/install.sh)"` |
-| WGET   | `sh -c "$(wget -O- https://raw.githubusercontent.com/gantoreno/saturn-prompt/master/scripts/install.sh)"`   |
+| Method | Command                                                                                          |
+| :----- | :----------------------------------------------------------------------------------------------- | ---- |
+| cURL   | `curl -fsSL https://raw.githubusercontent.com/gantoreno/saturn-prompt/master/scripts/install.sh" | zsh` |
+| WGET   | `wget -O- https://raw.githubusercontent.com/gantoreno/saturn-prompt/master/scripts/install.sh)"  | zsh` |
 
 After that, in your `.zshrc`:
 
