@@ -53,7 +53,7 @@ RPROMPT=$''
 
 if [[ $SATURN_RIGHT_PROMPT == "true" ]] then
   RPROMPT+=$'%(?.%F{$SATURN_SUCCESS_COLOR}$SATURN_SUCCESS_ICON.%F{$SATURN_ERROR_COLOR}$SATURN_ERROR_ICON%f)' # Status
-  RPROMPT+=$'%B%F{$SATURN_TIME_COLOR}$SATURN_TIME_FORMAT%f%b'                                                  # Time
+  RPROMPT+=$'%B%F{$SATURN_TIME_COLOR}$SATURN_TIME_FORMAT%f%b'                                                # Time
 fi
 
 # Git elements
