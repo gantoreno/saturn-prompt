@@ -1,6 +1,6 @@
 <div align="center">
   <img src="img/logo.png" alt="Saturn prompt" width="400">
-  <h1>Saturn</h1>
+  <h1>🚀 Saturn</h1>
 </div>
 
 <h4 align="center">🪐 A ZSH theme for space lovers out there</h4>
