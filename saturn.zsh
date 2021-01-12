@@ -9,7 +9,9 @@ export SATURN_VERSION='0.1.0'
 
 # Prompt variables
 SATURN_PROMPT_ICON="${SATURN_PROMPT_ICON=🪐}"
+
 SATURN_PATH_COLOR="${SATURN_PATH_COLOR=cyan}"
+SATURN_PATH_FORMAT="${SATURN_PATH_FORMAT=%~}"
 
 SATURN_RIGHT_PROMPT="${SATURN_RIGHT_PROMPT=true}"
 
@@ -27,11 +29,14 @@ SATURN_GIT_PROMPT_SYMBOL="${SATURN_GIT_PROMPT_SYMBOL=שׂ}"
 SATURN_GIT_PROMPT_COLOR="${SATURN_GIT_PROMPT_COLOR=magenta}"
 SATURN_GIT_PROMPT_COLOR_DIRTY="${SATURN_GIT_PROMPT_COLOR_DIRTY=red}"
 
+if [[ "$plugins" =~ "shrink-path" ]] then
+  SATURN_PATH_FORMAT="${SATURN_PATH_FORMAT=$(shrink_path -f)}"
+fi
 
 # Prompt (left)
 PROMPT=$''
 PROMPT+=$'$SATURN_PROMPT_ICON '                           # Prompt icon
-PROMPT+=$'%B%F{$SATURN_PATH_COLOR}$(shrink_path -f)%f%b ' # Path
+PROMPT+=$'%B%F{$SATURN_PATH_COLOR}$SATURN_PATH_FORMAT%f%b ' # Path
 PROMPT+=$'$(git_prompt_info)'                             # VCS
 
 if [[ $TERM_PROGRAM == "vscode" ]] then
