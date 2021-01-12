@@ -5,7 +5,7 @@
 # https://github.com/hollandsgabe/saturn-prompt
 
 # Saturn's current version
-export SATURN_VERSION='0.1.0'
+export SATURN_VERSION='0.1.1'
 
 # Prompt variables
 SATURN_PROMPT_ICON="${SATURN_PROMPT_ICON=🪐}"
