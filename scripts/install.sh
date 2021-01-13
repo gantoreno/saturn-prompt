@@ -7,13 +7,17 @@ if [[ -z "$ZSH" ]] then
   exit 1
 fi
 
-cd $ZSH/custom/themes
+(
+  cd $ZSH/custom/themes
 
-git clone $HOME/projects/saturn-prompt
+  git clone $HOME/projects/saturn-prompt
 
-ln -sf saturn-prompt/saturn.zsh saturn.zsh-theme
+  ln -sf saturn-prompt/saturn.zsh saturn.zsh-theme
 
-echo '👽 Remember to set ZSH_THEME="saturn" in your .zshrc'
-echo '🚀 Saturn is now installed, enjoy!'
+  sed -i -- 's/^ZSH_THEME=.*$/ZSH_THEME="saturn"/g' $HOME/.zshrc
 
-source $HOME/.zshrc
+  echo '👽 Your $ZSH_THEME was automatically switched to "saturn"'
+  echo '🚀 Saturn is now installed, enjoy!'
+)
+
+exec zsh
