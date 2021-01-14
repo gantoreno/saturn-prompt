@@ -10,7 +10,7 @@ fi
 (
   cd $ZSH/custom/themes
 
-  git clone $HOME/projects/saturn-prompt
+  git clone https://github.com/gantoreno/saturn-prompt.git
 
   ln -sf saturn-prompt/saturn.zsh saturn.zsh-theme
 
