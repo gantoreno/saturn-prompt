@@ -10,7 +10,7 @@ Saturn is a soft & minimalistic prompt for those who love space and want to have
 <div align="center">
   <img src="img/saturn.png" alt="Saturn on iTerm2" width="800">
   <br>
-  <sub>Saturn prompt on iTerm2 and <a href="https://github.com/equinusocio">equinusocio</a>'s Material Theme Darker</sub>
+  <sub>Saturn prompt on iTerm2 with <a href="https://github.com/equinusocio">equinusocio</a>'s Material Theme Darker, <a href="https://www.monolisa.dev/">MonoLisa</a> 12px and <code><a href="https://github.com/athityakumar/colorls">colorls</a></code></sub>
 </div>
 
 ## Installation
