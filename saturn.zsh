@@ -1,6 +1,6 @@
 # Saturn prompt
 #
-# Author: Gabriel Moreno, mail@gantoreno.com
+# Author: Gabriel Moreno, gantoreno@gmail.com
 # License: MIT
 # https://github.com/hollandsgabe/saturn-prompt
 
