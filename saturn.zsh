@@ -1,86 +1,96 @@
-# Saturn prompt
-#
-# Author: Gabriel Moreno, gantoreno@gmail.com
-# License: MIT
-# https://github.com/hollandsgabe/saturn-prompt
+#    ______      __         _      __   Gabriel Moreno
+#   / ____/___ _/ /_  _____(_)__  / /   ==============
+#  / / __/ __ `/ __ \/ ___/ / _ \/ /    E-mail:   gantoreno@gmail.com
+# / /_/ / /_/ / /_/ / /  / /  __/ /     Website:  https://gantoreno.com
+# \____/\__,_/_.___/_/  /_/\___/_/      GitHub:   https://github.com/gantoreno
+# 
+# Saturn prompt 
 
 # Saturn's current version
 export SATURN_VERSION="0.1.2"
 
-# +-----------------------------------------------------------+
-# | PROMPT VARIABLES                                          |
-# | Dynamic values that can be configured/overriden in .zshrc |
-# +-----------------------------------------------------------+
+# Prompt icons
+SATURN_MARK_COLOR="${SATURN_MARK_COLOR="%(?.green.red)"}"
+SATURN_MARK_ICON_NORMAL="${SATURN_MARK_NORMAL_ICON="➜"}"
+SATURN_MARK_ICON_ROOT="${SATURN_MARK_ROOT_ICON="❯"}"
+SATURN_MARK_SEQUENCE="${SATURN_MARK_SEQUENCE="%(!.$SATURN_MARK_ICON_ROOT.$SATURN_MARK_ICON_NORMAL) "}"
 
-# Prompt icon
-SATURN_PROMPT_ICON="${SATURN_PROMPT_ICON="🪐"}"
+saturn_mark() {
+  printf %s "%F{$SATURN_MARK_COLOR}$SATURN_MARK_SEQUENCE%f"
+}
+
+# Newline
+SATURN_NEWLINE="${SATURN_NEWLINE="$prompt_newline"}"
+
+saturn_newline() {
+  printf %s $SATURN_NEWLINE
+}
 
 # Path
-SATURN_PATH_COLOR="${SATURN_PATH_COLOR="cyan"}"
+SATURN_PATH_COLOR="${SATURN_PATH_COLOR="blue"}"
+SATURN_PATH_SEQUENCE="${SATURN_PATH_SEQUENCE="%~"}"
+SATURN_PATH_ICON="${SATURN_PATH_ICON="🪐"}"
+
+saturn_path() {
+  printf %s "%F{$SATURN_PATH_COLOR}%B$SATURN_PATH_SEQUENCE $SATURN_PATH_ICON%b%f"
+}
 
 # Time
-SATURN_TIME_COLOR="${SATURN_TIME_COLOR=yellow}"
-SATURN_TIME_FORMAT="${SATURN_TIME_FORMAT="%D{%L:%M %p}"}"
+SATURN_TIME_COLOR="${SATURN_TIME_COLOR="yellow"}"
+SATURN_TIME_SEQUENCE="${SATURN_TIME_SEQUENCE="%D{%L:%M %p}"}"
+SATURN_TIME_ICON="${SATURN_TIME_ICON="⏰"}"
+
+saturn_time() {
+  printf %s " at %F{$SATURN_TIME_COLOR}%B$SATURN_TIME_SEQUENCE $SATURN_TIME_ICON%b%f"
+}
 
 # Error/success status
-SATURN_SUCCESS_COLOR="${SATURN_SUCCESS_COLOR="green"}"
-SATURN_SUCCESS_ICON="${SATURN_SUCCESS_ICON="✔"}"
 SATURN_ERROR_COLOR="${SATURN_ERROR_COLOR="red"}"
-SATURN_ERROR_ICON="${SATURN_ERROR_ICON="✘"}"
+SATURN_ERROR_ICON="${SATURN_ERROR_ICON="❌"}"
+
+saturn_error() {
+  printf %s "%(?.. exited %F{$SATURN_ERROR_COLOR}%B%? $SATURN_ERROR_ICON%b%f)"
+}
 
 # Git prompt
-SATURN_GIT_PROMPT_SYMBOL="${SATURN_GIT_PROMPT_SYMBOL="שׂ"}"
-SATURN_GIT_PROMPT_COLOR="${SATURN_GIT_PROMPT_COLOR="magenta"}"
-SATURN_GIT_PROMPT_COLOR_DIRTY="${SATURN_GIT_PROMPT_COLOR_DIRTY="red"}"
+SATURN_GIT_COLOR="${SATURN_GIT_COLOR="magenta"}"
+SATURN_GIT_SYMBOL_CLEAN="${SATURN_GIT_SYMBOL="🌳"}"
+SATURN_GIT_SYMBOL_DIRTY="${SATURN_GIT_SYMBOL_DIRTY="⁉️ "}"
 
-# Right prompt
-SATURN_RIGHT_PROMPT="${SATURN_RIGHT_PROMPT="true"}"
+saturn_git() {
+  local branch_icon=$SATURN_GIT_SYMBOL_CLEAN
+  local branch_name=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 
-# Git elements
-ZSH_THEME_GIT_PROMPT_PREFIX="on %B%F{$SATURN_GIT_PROMPT_COLOR}"
-ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{$SATURN_GIT_PROMPT_COLOR}$SATURN_GIT_PROMPT_SYMBOL%f%b "
-ZSH_THEME_GIT_PROMPT_DIRTY=" %F{$SATURN_GIT_PROMPT_COLOR_DIRTY}[!]%f"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
+  [[ -z $branch_name ]] && exit
+  
+  local branch_status=$(git status --porcelain)
 
-if [[ "$plugins" =~ "shrink-path" ]] then
-  SATURN_PATH_FORMAT="${SATURN_PATH_FORMAT=$(shrink_path -f)}"
-fi
+  [[ ! -z $branch_status ]] && branch_icon=$SATURN_GIT_SYMBOL_DIRTY
 
-# +------------------------------------------------+
-# | PROMPT                                         |
-# | Build the prompt based on the config variables |
-# +------------------------------------------------+
+  branch_name="%F{$SATURN_GIT_COLOR}%B$branch_name $branch_icon%b%f"
+  branch_name=" on $branch_name"
+  
+  printf %s $branch_name
+}
 
-# Prompt
-PROMPT=$''
+SATURN_SEGMENTS=(
+  saturn_newline
+  saturn_path
+  saturn_git
+  saturn_time
+  saturn_error
+  saturn_newline
+  saturn_mark
+)
 
-# Prompt icon
-PROMPT+=$'$SATURN_PROMPT_ICON '
+saturn_prompt() {
+  local prompt_string=""
 
-# Use shrink_path if present
-# Otherwise, fallback to regular path
-if [[ "$plugins" =~ "shrink-path" ]] then
-  PROMPT+=$'%B%F{$SATURN_PATH_COLOR}$(shrink_path -f)%f%b '
-else
-  PROMPT+=$'%B%F{$SATURN_PATH_COLOR}%~%f%b '
-fi
+  foreach prompt_segment in $SATURN_SEGMENTS
+    prompt_string+=$($prompt_segment)
+  end
 
-# VCS
-PROMPT+=$'$(git_prompt_info)'
+  printf %s $prompt_string
+}
 
-# Extra space on VSCode
-if [[ "$TERM_PROGRAM" == "vscode" ]] then
-  PROMPT+=$' '
-fi
-
-# Check if RPROMPT is present
-if [[ $SATURN_RIGHT_PROMPT == "true" ]] then
-  # RPROMPT
-  RPROMPT=$''
-
-  # Error/success status
-  RPROMPT+=$'%(?.%F{$SATURN_SUCCESS_COLOR}$SATURN_SUCCESS_ICON.%F{$SATURN_ERROR_COLOR}$SATURN_ERROR_ICON%f) '
-
-  # Time
-  RPROMPT+=$'%B%F{$SATURN_TIME_COLOR}$SATURN_TIME_FORMAT%f%b'
-fi
+PROMPT=$'$(saturn_prompt)'
