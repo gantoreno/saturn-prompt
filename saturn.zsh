@@ -7,7 +7,7 @@
 # Saturn prompt 
 
 # Saturn's current version
-export SATURN_VERSION="0.1.2"
+export SATURN_VERSION="0.2.0"
 
 # Prompt icons
 SATURN_MARK_COLOR="${SATURN_MARK_COLOR="%(?.green.red)"}"
