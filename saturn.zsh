@@ -3,10 +3,11 @@
 #  / / __/ __ `/ __ \/ ___/ / _ \/ /    E-mail:   gantoreno@gmail.com
 # / /_/ / /_/ / /_/ / /  / /  __/ /     Website:  https://gantoreno.com
 # \____/\__,_/_.___/_/  /_/\___/_/      GitHub:   https://github.com/gantoreno
-# 
-# Saturn prompt 
+#
+# Saturn prompt
 
 export SATURN_VERSION="0.2.0"
+export SATURN_EMOJIS_ENABLED="${SATURN_EMOJIS_ENABLED=true}"
 
 [[ -z "$SATURN_ROOT" ]] && export SATURN_ROOT=${${(%):-%x}:A:h}
 
